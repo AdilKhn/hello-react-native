@@ -12,12 +12,20 @@ import {
   View
 } from 'react-native';
 
+import MyComponent from './components/MyComponent.js';
+
 export default class HelloReactNative extends Component {
+  constructor(){
+    super();
+    this.state = {
+      words: MyComponent.someWords()
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          {this.state.words}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
