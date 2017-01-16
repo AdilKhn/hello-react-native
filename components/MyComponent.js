@@ -8,7 +8,7 @@ export default class MyComponent {
   static arrayOfSentence(size) {
     let array = [];
     for (let i=0; i <= size ; i++){
-      array[i] = "homer simspon rules";
+      array[i] = "homer simspon rules " + i;
     }
     return array;
   }

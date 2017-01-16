@@ -9,7 +9,8 @@ import {
   AppRegistry,
     StyleSheet,
     Text,
-    ListView
+    ListView,
+    Image
 } from 'react-native';
 
 import MyComponent from './components/MyComponent.js';
@@ -19,15 +20,18 @@ export default class HelloReactNative extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1000)),
+      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(15)),
     };
   }
   render() {
+    let pic = {
+      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+    };
     return (
       <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) => <Text>{rowData}</Text>}
-      />
+         dataSource={this.state.dataSource}
+         renderRow={(rowData) => <Image source={pic} style={{width: 193, height: 110}} />}
+       />
     );
   }
 }
