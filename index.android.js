@@ -7,9 +7,9 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    StyleSheet,
+    Text,
+    ListView
 } from 'react-native';
 
 import MyComponent from './components/MyComponent.js';
@@ -17,24 +17,17 @@ import MyComponent from './components/MyComponent.js';
 export default class HelloReactNative extends Component {
   constructor(){
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      words: MyComponent.someWords()
-    }
+      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1000)),
+    };
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          {this.state.words}
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) => <Text>{rowData}</Text>}
+      />
     );
   }
 }
