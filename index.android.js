@@ -30,7 +30,7 @@ export default class HelloReactNative extends Component {
     return (
       <ListView
          dataSource={this.state.dataSource}
-         renderRow={(rowData) => <Image source={pic} style={{width: 193, height: 110}} />}
+         renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
        />
     );
   }
