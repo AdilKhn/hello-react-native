@@ -1,8 +1,14 @@
 export default class MyComponent {
 
   static someWords() {
-  
-    return "These are words from a javascript class. They could come from some rest call to a webservice that talks to a databasle";
+    return fetch('http://localhos:3001/api/names')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        return responseJson.names.toString();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   static arrayOfSentence(size) {

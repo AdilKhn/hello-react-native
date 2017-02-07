@@ -3,14 +3,14 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
-    StyleSheet,
-    Text,
-    ListView,
-    Image
+  StyleSheet,
+  Text,
+  ListView,
+  Image,
+  View
 } from 'react-native';
 
 import MyComponent from './components/MyComponent.js';
@@ -20,7 +20,7 @@ export default class HelloReactNative extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(15)),
+      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
     };
   }
   render() {
@@ -28,10 +28,13 @@ export default class HelloReactNative extends Component {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
     };
     return (
-      <ListView
-         dataSource={this.state.dataSource}
-         renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
-       />
+      <View>
+        <Text> {MyComponent.someWords()} </Text>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
+        />
+      </View>
     );
   }
 }
