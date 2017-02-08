@@ -29,7 +29,6 @@ export default class HelloReactNative extends Component {
     };
     return (
       <View>
-        <Text> {MyComponent.someWords()} </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}

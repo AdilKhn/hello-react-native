@@ -1,14 +1,15 @@
 export default class MyComponent {
 
-  static someWords() {
-    return fetch('http://localhos:3001/api/names')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        return responseJson.names.toString();
-      })
-      .catch((error) => {
-        console.error(error);
+  static someWords(app) {
+    return fetch('http://localhost:3001/api/names')
+      .then(function(response) {
+        return response.json();
+      }).then(function(value){
+        console.log(value.names.toString());
+        app.setState({names: value.names.toString()});
       });
+
+    //     return ['homer','marge','burns','weiner'];
   }
 
   static arrayOfSentence(size) {

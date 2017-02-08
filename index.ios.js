@@ -9,28 +9,40 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  ListView,
+  Image,
   View
 } from 'react-native';
 
+import MyComponent from './components/MyComponent.js';
+import _ from 'underscore';
 export default class HelloReactNative extends Component {
+  constructor(){
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
+      names: "original"
+    };
+    MyComponent.someWords(this);
+  }
+ 
   render() {
+    let pic = {
+      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+    };
+    console.log('state: ' + this.state.names);
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
+        />
+        <Text>{this.state.names}</Text>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
