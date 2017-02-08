@@ -1,15 +1,14 @@
+import { ListView } from 'react-native';
 export default class MyComponent {
-
   static someWords(app) {
     return fetch('http://localhost:3001/api/names')
       .then(function(response) {
         return response.json();
       }).then(function(value){
-        console.log(value.names.toString());
-        app.setState({names: value.names.toString()});
+        console.log("setting app.names " + value.names );
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        app.setState({namesSource: ds.cloneWithRows(value.names)});
       });
-
-    //     return ['homer','marge','burns','weiner'];
   }
 
   static arrayOfSentence(size) {

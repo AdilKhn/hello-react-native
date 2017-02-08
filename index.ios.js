@@ -19,10 +19,11 @@ import _ from 'underscore';
 export default class HelloReactNative extends Component {
   constructor(){
     super();
+    this.names = ['a','b'];
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
-      names: "original"
+      namesSource: ds.cloneWithRows(['foo','bar'])
     };
     MyComponent.someWords(this);
   }
@@ -38,7 +39,10 @@ export default class HelloReactNative extends Component {
           dataSource={this.state.dataSource}
           renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
         />
-        <Text>{this.state.names}</Text>
+        <ListView 
+          dataSource={this.state.namesSource}
+          renderRow={(dataRow) => <Text>{dataRow} </Text>}
+        />
       </View>
     );
   }
