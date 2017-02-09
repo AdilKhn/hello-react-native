@@ -25,9 +25,15 @@ export default class HelloReactNative extends Component {
       dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
       namesSource: ds.cloneWithRows(['foo','bar'])
     };
-    MyComponent.someWords(this);
+    this.apiCallback = this.apiCallback.bind(this);
+    MyComponent.someWords(this.apiCallback);
   }
  
+  apiCallback(value){
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.setState({namesSource: ds.cloneWithRows(value.names)});
+  }
+
   render() {
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'

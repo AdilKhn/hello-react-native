@@ -1,7 +1,7 @@
 import { ListView } from 'react-native';
 export default class MyComponent {
   static someWords(callback) {
-    return fetch('http://192.168.1.159:3001/api/names')
+    return fetch('http://localhost:3001/api/names')
       .then(function(response) {
         return response.json();
       }).then(function(value){
