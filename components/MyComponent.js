@@ -1,7 +1,7 @@
 import { ListView } from 'react-native';
 export default class MyComponent {
   static someWords(callback) {
-    return fetch('http://localhost:3001/api/names')
+    fetch('http://localhost:3001/api/names')
       .then(function(response) {
         return response.json();
       }).then(function(value){
@@ -10,6 +10,19 @@ export default class MyComponent {
       });
   }
 
+  static addName(callback) {
+    fetch('http://localhost:3001/api/name', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Senor Burns'
+      })
+    }); 
+
+  }
   static arrayOfSentence(size) {
     let array = [];
     for (let i=0; i <= size ; i++){

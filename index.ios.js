@@ -20,7 +20,6 @@ import _ from 'underscore';
 export default class HelloReactNative extends Component {
   constructor(){
     super();
-    this.names = ['a','b'];
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
@@ -28,6 +27,7 @@ export default class HelloReactNative extends Component {
       text: 'useless placeholder'
     };
     this.apiCallback = this.apiCallback.bind(this);
+    this.postCallback = this.postCallback.bind(this);
     this.editHandler = this.editHandler.bind(this);
     MyComponent.someWords(this.apiCallback);
   }
@@ -36,10 +36,15 @@ export default class HelloReactNative extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.setState({namesSource: ds.cloneWithRows(value.names)});
   }
-
+  
   editHandler(event) {
     console.log("EDIT HANDLER");
     console.log(this.state.text);
+    MyComponent.addName(this.postCallback);
+  }
+
+  postCallback(data){
+   console.log('posted!' + data); 
   }
   render() {
     let pic = {
