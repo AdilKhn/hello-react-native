@@ -11,29 +11,42 @@ import {
   Text,
   ListView,
   Image,
-  View
+  View,
+  TextInput
 } from 'react-native';
 
 import MyComponent from './components/MyComponent.js';
-
+import _ from 'underscore';
 export default class HelloReactNative extends Component {
   constructor(){
     super();
-    this.names = ['a','b'];
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
-      namesSource: ds.cloneWithRows(['foo','bar'])
+      namesSource: ds.cloneWithRows(['foo','bar']),
+      text: 'useless placeholder'
     };
     this.apiCallback = this.apiCallback.bind(this);
+    this.postCallback = this.postCallback.bind(this);
+    this.editHandler = this.editHandler.bind(this);
     MyComponent.someWords(this.apiCallback);
   }
-
+ 
   apiCallback(value){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.setState({namesSource: ds.cloneWithRows(value.names)});
   }
+  
+  editHandler(event) {
+    console.log("EDIT HANDLER " + event.target.text);
+    console.log(this.state.text);
+    MyComponent.addName(this.state.text, this.postCallback);
+  }
 
+  postCallback(data){
+    console.log('posted!');
+    console.log(data);
+  }
   render() {
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
@@ -45,6 +58,12 @@ export default class HelloReactNative extends Component {
           dataSource={this.state.dataSource}
           renderRow={() => <Image source={pic} style={{width: 193, height: 110}} />}
         />
+        <TextInput 
+          style={{height: 40, borderColor: 'blue', borderWidth: 1}}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+          onEndEditing={this.editHandler}
+        />
         <ListView 
           dataSource={this.state.namesSource}
           renderRow={(dataRow) => <Text>{dataRow} </Text>}
@@ -53,7 +72,6 @@ export default class HelloReactNative extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
