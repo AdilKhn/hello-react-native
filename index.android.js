@@ -24,11 +24,12 @@ export default class HelloReactNative extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(MyComponent.arrayOfSentence(1)),
       namesSource: ds.cloneWithRows(['foo','bar']),
-      text: 'useless placeholder'
+      text: 'Enter A New Name'
     };
     this.apiCallback = this.apiCallback.bind(this);
     this.postCallback = this.postCallback.bind(this);
     this.editHandler = this.editHandler.bind(this);
+    this.inputTextFocus = this.inputTextFocus.bind(this);
     MyComponent.someWords(this.apiCallback);
   }
  
@@ -46,6 +47,11 @@ export default class HelloReactNative extends Component {
   postCallback(data){
     console.log('posted!');
     console.log(data);
+    MyComponent.someWords(this.apiCallback);
+  }
+
+  inputTextFocus() {
+    this.setState({text: ""});
   }
   render() {
     let pic = {
@@ -63,6 +69,7 @@ export default class HelloReactNative extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
           onEndEditing={this.editHandler}
+          onFocus={this.inputTextFocus}
         />
         <ListView 
           dataSource={this.state.namesSource}

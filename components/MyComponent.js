@@ -1,7 +1,7 @@
 import { ListView } from 'react-native';
 export default class MyComponent {
   static someWords(callback) {
-    fetch('http://192.168.1.159:3001/api/names')
+    fetch('http://192.168.1.155:3001/api/names')
       .then(function(response) {
         return response.json();
       }).then(function(value){
@@ -11,7 +11,7 @@ export default class MyComponent {
   }
 
   static addName(value,callback) {
-    fetch('http://192.168.1.159:3001/api/name', {
+    fetch('http://192.168.1.155:3001/api/name', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
